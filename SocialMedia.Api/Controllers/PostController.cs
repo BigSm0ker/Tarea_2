@@ -8,6 +8,7 @@ using SocialMedia.Core.QueryFilters;
 using SocialMedia.Infrastructure.DTOs;
 using SocialMedia.Infrastructure.Validators;
 using System.Net;
+using static SocialMedia.Core.CustomEntities.PostComentariosUsersResponse;
 
 namespace SocialMedia.Api.Controllers
 {
@@ -251,5 +252,91 @@ namespace SocialMedia.Api.Controllers
             return NoContent();
         }
         #endregion
+
+        #region Consultas Avanzadas Dapper
+
+        // 1) Usuarios activos sin comentarios
+        [HttpGet("reportes/usuarios-sin-comentarios")]
+        public async Task<IActionResult> UsuariosSinComentarios()
+        {
+            var data = await _postService.GetUsuariosActivosSinComentariosAsync();
+            return Ok(new ApiResponse<IEnumerable<UsuarioSinComentariosDto>>(data));
+        }
+
+        // 2) Comentarios de los últimos 3 meses por usuarios >25 años
+        [HttpGet("reportes/comentarios-3m-mayores25")]
+        public async Task<IActionResult> Comentarios3MesesMayores25()
+        {
+            var data = await _postService.GetComentarios3MesesMayores25Async();
+            return Ok(new ApiResponse<IEnumerable<Comentario3MesesDto>>(data));
+        }
+
+        // 3) Posts sin comentarios de usuarios activos
+        [HttpGet("reportes/posts-sin-comentarios-activos")]
+        public async Task<IActionResult> PostsSinComentariosActivos()
+        {
+            var data = await _postService.GetPostsSinComentariosDeActivosAsync();
+            return Ok(new ApiResponse<IEnumerable<PostSinComentariosActivosDto>>(data));
+        }
+
+        // 4) Usuarios que comentaron en ≥3 autores diferentes
+        [HttpGet("reportes/usuarios-varios-autores")]
+        public async Task<IActionResult> UsuariosVariosAutores()
+        {
+            var data = await _postService.GetUsuariosQueComentanVariosAutoresAsync();
+            return Ok(new ApiResponse<IEnumerable<UsuarioVariosAutoresDto>>(data));
+        }
+
+        // 5) Posts con comentarios de menores de edad
+        [HttpGet("reportes/posts-menores-edad")]
+        public async Task<IActionResult> PostsConMenores()
+        {
+            var data = await _postService.GetPostsConComentariosDeMenoresAsync();
+            return Ok(new ApiResponse<IEnumerable<PostConMenoresDto>>(data));
+        }
+
+        // 6) Densidad de comentarios por día
+        [HttpGet("reportes/densidad-comentarios-dia")]
+        public async Task<IActionResult> DensidadPorDia()
+        {
+            var data = await _postService.GetDensidadComentariosPorDiaAsync();
+            return Ok(new ApiResponse<IEnumerable<DensidadPorDiaDto>>(data));
+        }
+
+        // 7) Crecimiento mensual de comentarios
+        [HttpGet("reportes/crecimiento-mensual-comentarios")]
+        public async Task<IActionResult> CrecimientoMensual()
+        {
+            var data = await _postService.GetCrecimientoMensualComentariosAsync();
+            return Ok(new ApiResponse<IEnumerable<CrecimientoMensualDto>>(data));
+        }
+
+        // 8) Top 5 usuarios últimos 30 días
+        [HttpGet("reportes/top5-usuarios-30dias")]
+        public async Task<IActionResult> Top5Usuarios()
+        {
+            var data = await _postService.GetTop5Usuarios30DiasAsync();
+            return Ok(new ApiResponse<IEnumerable<TopUsuario30DiasDto>>(data));
+        }
+
+        // 9) Promedio de comentarios por post
+        [HttpGet("reportes/promedio-comentarios-post")]
+        public async Task<IActionResult> PromedioComentarios()
+        {
+            var data = await _postService.GetPromedioComentariosPorPostAsync();
+            return Ok(new ApiResponse<PromedioComentariosDto?>(data));
+        }
+
+        // 10) Tiempo medio hasta el primer comentario
+        [HttpGet("reportes/tiempo-medio-primer-comentario")]
+        public async Task<IActionResult> TiempoMedioPrimerComentario()
+        {
+            var data = await _postService.GetTiempoMedioPrimerComentarioAsync();
+            return Ok(new ApiResponse<IEnumerable<TiempoMedioPrimerComentarioDto>>(data));
+        }
+
+        #endregion
+
+
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SocialMedia.Core.CustomEntities.PostComentariosUsersResponse;
 
 namespace SocialMedia.Core.Services
 {
@@ -136,5 +137,36 @@ namespace SocialMedia.Core.Services
 
             return false;
         }
+        public async Task<IEnumerable<UsuarioSinComentariosDto>> GetUsuariosActivosSinComentariosAsync()
+    => await _unitOfWork.PostRepository.GetUsuariosActivosSinComentariosAsync();
+
+        public async Task<IEnumerable<Comentario3MesesDto>> GetComentarios3MesesMayores25Async()
+            => await _unitOfWork.PostRepository.GetComentarios3MesesMayores25Async();
+
+        public async Task<IEnumerable<PostSinComentariosActivosDto>> GetPostsSinComentariosDeActivosAsync()
+            => await _unitOfWork.PostRepository.GetPostsSinComentariosDeActivosAsync();
+
+        public async Task<IEnumerable<UsuarioVariosAutoresDto>> GetUsuariosQueComentanVariosAutoresAsync()
+            => await _unitOfWork.PostRepository.GetUsuariosQueComentanVariosAutoresAsync();
+
+        public async Task<IEnumerable<PostConMenoresDto>> GetPostsConComentariosDeMenoresAsync()
+            => await _unitOfWork.PostRepository.GetPostsConComentariosDeMenoresAsync();
+
+        public async Task<IEnumerable<DensidadPorDiaDto>> GetDensidadComentariosPorDiaAsync()
+            => await _unitOfWork.PostRepository.GetDensidadComentariosPorDiaAsync();
+
+        public async Task<IEnumerable<CrecimientoMensualDto>> GetCrecimientoMensualComentariosAsync()
+            => await _unitOfWork.PostRepository.GetCrecimientoMensualComentariosAsync();
+
+        public async Task<IEnumerable<TopUsuario30DiasDto>> GetTop5Usuarios30DiasAsync()
+            => await _unitOfWork.PostRepository.GetTop5Usuarios30DiasAsync();
+
+        public async Task<PromedioComentariosDto?> GetPromedioComentariosPorPostAsync()
+            => await _unitOfWork.PostRepository.GetPromedioComentariosPorPostAsync();
+
+        public async Task<IEnumerable<TiempoMedioPrimerComentarioDto>> GetTiempoMedioPrimerComentarioAsync()
+            => await _unitOfWork.PostRepository.GetTiempoMedioPrimerComentarioAsync();
+
+
     }
 }
